@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>นมสด ONLY 🎀</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- สำคัญมาก: ต้องลิงก์ไฟล์ css ให้ถูกชื่อ -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main id="app">
+
+  <!-- ========== หน้าที่ 1 : หน้าแรก ========== -->
+  <section class="page active" id="page-home">
+    <div class="edge edge-top">นมสด ONLY</div>
+    <div class="edge edge-bottom">นมสด ONLY</div>
+    <div class="edge edge-left">นมสด ONLY</div>
+    <div class="edge edge-right">นมสด ONLY</div>
+
+    <button class="btn big" id="btn-enter">เข้าประมูล</button>
+  </section>
+
+  <!-- ========== หน้าที่ 2 : ตั้งชื่อ ========== -->
+  <section class="page" id="page-name">
+    <div class="card">
+      <h2>ตั้งชื่อของเธอ 🐱🎀</h2>
+      <input id="input-name" type="text" maxlength="20" placeholder="พิมพ์ชื่ออะไรก็ได้...">
+      <button class="btn" id="btn-name-ok">ตกลง</button>
+    </div>
+  </section>
+
+  <!-- ========== หน้าที่ 3 : หน้าประมูล ========== -->
+  <section class="page" id="page-auction">
+
+    <div class="topbar">
+      <span class="badge">👤 <b id="show-name">—</b></span>
+      <span class="badge money">💰 <b id="show-money">1,000,000,000</b> บาท</span>
+    </div>
+
+    <div class="center">
+      <button class="btn big" id="btn-start">เริ่มประมูล</button>
+    </div>
+
+    <div class="log" id="log"></div>
+
+    <div class="bottom">
+      <button class="btn hidden" id="btn-force">ประมูลบังคับ 1,000,000,000 บาท</button>
+      <button class="btn hidden" id="btn-why">ถามว่าประมูลไปทำไม</button>
+    </div>
+
+    <div id="stage" class="hidden"></div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
