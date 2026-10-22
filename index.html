@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>นมสด ONLY ประมูล</title>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Mali','Tahoma',sans-serif;color:#d6336c;
+background:#ffe3ef;
+background-image:radial-gradient(#ffc2dc 18%,transparent 20%),radial-gradient(#ffc2dc 18%,transparent 20%);
+background-size:40px 40px;background-position:0 0,20px 20px;overflow:hidden}
+.screen{position:fixed;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px}
+.screen.active{display:flex}
+.edge{position:absolute;font-weight:700;font-size:clamp(18px,4vw,30px);letter-spacing:2px;color:#ff5c9e}
+.top{top:12px;left:50%;transform:translateX(-50%)}
+.bottom{bottom:12px;left:50%;transform:translateX(-50%)}
+.left{transform:translateY(-50%) rotate(-90deg);transform-origin:left center;left:28px;top:60%}
+.right{right:28px;top:40%;transform:rotate(90deg);transform-origin:right center}
+.kitty{width:140px;height:120px;margin-bottom:14px;filter:drop-shadow(0 4px 0 #ffb3d1)}
+.btn{font-family:inherit;font-size:clamp(20px,5vw,28px);font-weight:700;color:#fff;background:linear-gradient(#ff7eb6,#ff4d94);
+border:4px solid #fff;border-radius:999px;padding:14px 38px;cursor:pointer;box-shadow:0 6px 0 #d6336c,0 10px 20px rgba(214,51,108,.3);transition:.1s}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #d6336c}
+.btn.bottom-btn{position:absolute;bottom:50px;left:50%;transform:translateX(-50%)}
+.btn.bottom-btn:active{transform:translateX(-50%) translateY(4px)}
+.money{position:absolute;top:14px;right:14px;background:#fff;border:3px solid #ff8fbf;border-radius:18px;padding:8px 14px;font-weight:700;font-size:clamp(14px,3.5vw,20px)}
+.who{position:absolute;top:14px;left:14px;background:#fff;border:3px solid #ff8fbf;border-radius:18px;padding:8px 14px;font-weight:700}
+.msg{font-size:clamp(22px,6vw,40px);font-weight:700;max-width:90%;line-height:1.5;text-shadow:2px 2px 0 #fff}
+.big{font-size:clamp(60px,20vw,140px);color:#ff4d94}
+.hidden{display:none!important}
+.modal{position:fixed;inset:0;background:rgba(255,150,190,.55);display:none;align-items:center;justify-content:center;z-index:9}
+.modal.show{display:flex}
+.box{background:#fff;border:5px solid #ff8fbf;border-radius:28px;padding:26px;text-align:center;width:min(90%,360px)}
+.box h2{margin-bottom:14px}
+.box input{font-family:inherit;font-size:20px;width:100%;padding:12px;border:3px solid #ffb3d1;border-radius:16px;text-align:center;margin-bottom:16px;outline:none}
+.box input:focus{border-color:#ff4d94}
+</style>
+</head>
+<body>
+
+<!-- หน้า 1 -->
+<div id="page1" class="screen active">
+  <div class="edge top">นมสด ONLY</div>
+  <div class="edge bottom">นมสด ONLY</div>
+  <div class="edge left">นมสด ONLY</div>
+  <div class="edge right">นมสด ONLY</div>
+  <svg class="kitty" viewBox="0 0 140 120"><use href="#kitty"/></svg>
+  <button class="btn" id="enterBtn">เข้าประมูล 🎀</button>
+</div>
+
+<!-- หน้า 2 -->
+<div id="page2" class="screen">
+  <div class="who" id="whoName"></div>
+  <div class="money" id="money">💰 1,000,000,000</div>
+  <svg class="kitty" viewBox="0 0 140 120"><use href="#kitty"/></svg>
+  <div class="msg" id="msg"></div>
+  <button class="btn" id="startBtn">เริ่มประมูล</button>
+  <button class="btn bottom-btn hidden" id="bidBtn">ประมูล 1,000,000,000 (บังคับ)</button>
+  <button class="btn bottom-btn hidden" id="whyBtn">ประมูลไปทำไม?</button>
+</div>
+
+<!-- ตั้งชื่อ -->
+<div class="modal" id="nameModal">
+  <div class="box">
+    <h2>ตั้งชื่อของคุณ 🎀</h2>
+    <input id="nameInput" maxlength="20" placeholder="ชื่ออะไรก็ได้">
+    <button class="btn" id="nameOk">ตกลง</button>
+  </div>
+</div>
+
+<!-- หน้าแมวสไตล์คิตตี้ (วาดเอง) -->
+<svg width="0" height="0" style="position:absolute">
+<defs><g id="kitty">
+  <polygon points="22,45 28,6 58,28" fill="#fff" stroke="#d6336c" stroke-width="4" stroke-linejoin="round"/>
+  <polygon points="118,45 112,6 82,28" fill="#fff" stroke="#d6336c" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="70" cy="68" rx="56" ry="44" fill="#fff" stroke="#d6336c" stroke-width="4"/>
+  <ellipse cx="46" cy="66" rx="5" ry="7" fill="#333"/>
+  <ellipse cx="94" cy="66" rx="5" ry="7" fill="#333"/>
+  <ellipse cx="70" cy="80" rx="7" ry="5" fill="#ffd43b" stroke="#d6336c" stroke-width="2"/>
+  <g stroke="#d6336c" stroke-width="3" stroke-linecap="round">
+    <line x1="8" y1="72" x2="30" y2="76"/><line x1="8" y1="86" x2="30" y2="83"/>
+    <line x1="132" y1="72" x2="110" y2="76"/><line x1="132" y1="86" x2="110" y2="83"/>
+  </g>
+  <g transform="translate(100,28)">
+    <polygon points="0,0 -22,-12 -22,12" fill="#ff4d94" stroke="#fff" stroke-width="2"/>
+    <polygon points="0,0 22,-12 22,12" fill="#ff4d94" stroke="#fff" stroke-width="2"/>
+    <circle r="6" fill="#ff7eb6" stroke="#fff" stroke-width="2"/>
+  </g>
+</g></defs></svg>
+
+<script src="app.js"></script>
+</body>
+    </html>
