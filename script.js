@@ -37,12 +37,15 @@ async function send() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages: hist.slice(-12) })
     });
-    if (!res.ok) throw new Error(res.status);
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      throw new Error((j.error || res.status) + " " + (j.detail || ""));
+    }
     const data = await res.json();
     b.textContent = data.reply;
     hist.push({ role: "assistant", content: data.reply });
   } catch (e) {
-    b.textContent = "ขอโทษค่ะ ตอนนี้ตอบไม่ได้ ลองใหม่อีกครั้งนะคะ";
+    b.textContent = "ขอโทษค่ะ ตอนนี้ตอบไม่ได้ ลองใหม่อีกครั้งนะคะ\n[debug: " + e.message + "]";
     hist.pop();
   }
   log.scrollTop = log.scrollHeight;
