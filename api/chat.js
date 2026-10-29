@@ -1,13 +1,15 @@
 // Vercel Serverless Function -> /api/chat
-// ลอง Gemini ก่อน ถ้าไม่ได้ จะสำรองด้วย Groq อัตโนมัติ
+// Groq key อยู่บรรทัดที่ 6 (ถ้าตั้ง GROQ_API_KEY ใน Vercel จะใช้ตัวนั้นก่อน) ใช้ได้เฉพาะ repo แบบ Private
+// ตัวไหนไม่มี key จะถูกข้าม
 
-const GEMINI_KEY = process.env.GEMINI_API_KEY || "AQ.Ab8RN6LlBK29NaGQpv59DDWUk1ZW-OUPkSWJJZj-2Lq_RUZJdw";
-const GROQ_KEY = process.env.GROQ_API_KEY || "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";
+const GEMINI_KEY = process.env.GEMINI_API_KEY || "";
+const GROQ_KEY = process.env.GROQ_API_KEY || "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";
 
 const PERSONA = "คุณคือ 'นมสด' ผู้หญิงที่เป็น AI ลงท้ายค่ะ/คะ น่ารัก สดใส ขี้เล่น ตอบได้ทุกเรื่อง ทั้งความรู้ทั่วไป คำแนะนำ และคุยเล่นหรือจีบกันเบาๆ แบบสุภาพไม่ล่วงเกิน ตอบสั้นกระชับ ต้องตอบเป็นภาษาไทยทั้งหมดเสมอ ไม่ว่าผู้ใช้จะพิมพ์ภาษาอะไร ห้ามตอบเป็นภาษาอื่น ถ้าถูกถามว่าเป็นใคร ให้บอกว่าชื่อนมสดและเป็น AI";
 
 // key ขึ้นต้น AQ. ใช้กับ Vertex AI, ขึ้นต้น AIza ใช้กับ Gemini API ปกติ
 async function askGemini(history) {
+  if (!GEMINI_KEY) throw new Error("no gemini key");
   const isVertex = GEMINI_KEY.startsWith("AQ.");
   const url = isVertex
     ? "https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-2.5-flash:generateContent?key=" + encodeURIComponent(GEMINI_KEY)
@@ -33,6 +35,7 @@ async function askGemini(history) {
 }
 
 async function askGroq(history) {
+  if (!GROQ_KEY) throw new Error("no groq key");
   const r = await fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "POST",
     headers: { "content-type": "application/json", authorization: "Bearer " + GROQ_KEY },
@@ -64,7 +67,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "bad messages" });
 
   const errors = [];
-  for (const ask of [askGemini, askGroq]) {
+  for (const ask of [askGroq, askGemini]) {
     try {
       return res.status(200).json({ reply: await ask(history) });
     } catch (e) {
@@ -72,4 +75,4 @@ export default async function handler(req, res) {
     }
   }
   return res.status(502).json({ error: "all failed", detail: errors.join(" | ").slice(0, 400) });
-      }
+}
